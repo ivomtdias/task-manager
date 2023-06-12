@@ -19,6 +19,9 @@ jobs:
           java-version: 11
           distribution: 'adopt'
 
+      - name: Update Gradle wrapper permissions
+        run: chmod +x ./gradlew
+
       - name: Build with Gradle
         run: ./gradlew build --no-daemon
 
