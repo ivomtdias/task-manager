@@ -33,6 +33,8 @@ jobs:
           context: .
           push: true
           tags: ivomtdias/task-manager:${{ github.sha }}
+          platforms: linux/amd64
+          file: ./Dockerfile
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
