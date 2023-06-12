@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://ivomtdias:${DB_PASSWORD}@cluster0.stjc0bc.mongodb.net/tasks?retryWrites=true&w=majority
+      database: tasks
