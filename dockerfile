@@ -1,5 +1,5 @@
 # Use a base image with Java and Gradle installed
-FROM adoptopenjdk:17-jdk-hotspot
+FROM eclipse-temurin:17-jdk-jammy
 
 # Set the working directory
 WORKDIR /app
