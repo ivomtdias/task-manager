@@ -15,6 +15,9 @@ COPY gradle gradle
 # Copy the application source code
 COPY src src
 
+# Update gradlew permissions
+RUN chmod +x gradlew
+
 # Build the application
 RUN ./gradlew build --no-daemon
 
