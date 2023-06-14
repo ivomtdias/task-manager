@@ -43,3 +43,39 @@ jobs:
         with:
           push: true
           tags: ivomtdias/task-manager:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: Create ECR Repository
+        id: ecr
+        run: |
+          aws ecr create-repository --repository-name task-manager-ecr
+          echo "::set-output name=repository_uri::$(aws ecr describe-repositories --repository-names task-manager-ecr | jq -r '.repositories[0].repositoryUri')"
+
+      - name: Login to Amazon ECR
+        run: |
+          aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin ${{ steps.ecr.outputs.repository_uri }}
+
+      - name: Push Docker image to ECR
+        run: |
+          docker tag ivomtdias/task-manager:latest ${{ steps.ecr.outputs.repository_uri }}:latest
+          docker push ${{ steps.ecr.outputs.repository_uri }}:latest
+
+      #- name: Deploy to ECS
+      #  run: |
+      #    aws cloudformation deploy \
+      #      --stack-name your-stack-name \
+      #      --template-file path/to/cloudformation-template.yml \
+      #      --parameter-overrides \
+      #        ECRRepositoryUri=${{ steps.ecr.outputs.repository_uri }} \
+      #        Environment=production \
+      #      --capabilities CAPABILITY_IAM
