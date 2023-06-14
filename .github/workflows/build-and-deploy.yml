@@ -75,8 +75,8 @@ jobs:
 
       - name: Push Docker image to ECR
         run: |
-          docker tag ivomtdias/task-manager:latest ${{ steps.ecr.outputs.repository_uri }}:latest
-          docker push ${{ steps.ecr.outputs.repository_uri }}:latest
+          docker tag ivomtdias/task-manager:latest ${{ steps.ecr.outputs.repository_uri }}:${{ github.sha }}
+          docker push ${{ steps.ecr.outputs.repository_uri }}:${{ github.sha }}
 
       #- name: Deploy to ECS
       #  run: |
