@@ -45,6 +45,7 @@ jobs:
           tags: ivomtdias/task-manager:latest
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
