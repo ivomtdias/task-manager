@@ -56,7 +56,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
 
+      - name: Check ECR Repository existence
+        id: check-ecr
+        run: |
+          aws ecr describe-repositories --repository-names task-manager-ecr || exit 0
+          echo "::set-output name=repository_exists::true"
+
       - name: Create ECR Repository
+        if: steps.check-ecr.outputs.repository_exists != 'true'
         id: ecr
         run: |
           aws ecr create-repository --repository-name task-manager-ecr
