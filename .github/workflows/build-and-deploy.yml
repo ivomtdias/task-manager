@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-    if: false
     runs-on: ubuntu-latest
 
     steps:
@@ -46,7 +45,7 @@ jobs:
           tags: ivomtdias/task-manager:latest
 
   deploy:
-    #needs: build
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
