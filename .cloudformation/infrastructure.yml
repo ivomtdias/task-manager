@@ -1,0 +1,67 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  Cluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: my-cluster
+
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: task-manager
+      Cpu: '256'  # Fargate free tier CPU units
+      Memory: '0.5GB'  # Fargate free tier memory
+
+      ExecutionRoleArn: !GetAtt TaskExecutionRole.Arn
+      NetworkMode: awsvpc
+
+      RequiresCompatibilities:
+        - FARGATE
+
+      ContainerDefinitions:
+        - Name: task-manager-container
+          Image: 078931281758.dkr.ecr.eu-west-1.amazonaws.com/task-manager-ecr:latest
+          PortMappings:
+            - ContainerPort: 8080
+
+  TaskExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: task-manager-execution-role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: task-manager-service
+      Cluster: !Ref Cluster
+      TaskDefinition: !Ref TaskDefinition
+      LaunchType: FARGATE
+      DesiredCount: 1
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - !Ref SecurityGroup
+          Subnets:
+            - !Ref Subnet
+
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for the ECS tasks
+      VpcId: vpc-01c43438790a20059
+
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: vpc-01c43438790a20059
+      AvailabilityZone: REPLACE_WITH_AVAILABILITY_ZONE
