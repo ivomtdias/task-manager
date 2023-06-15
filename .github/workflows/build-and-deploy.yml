@@ -90,8 +90,11 @@ jobs:
 
       - name: Deploy to ECS
         run: |
+          pwd
+          ls
+          
           # Deploy CloudFormation stack
-          aws cloudformation deploy \
-            --template-file infrastructure.yml \
-            --stack-name task-manager-stack \
-            --capabilities CAPABILITY_IAM
+          #aws cloudformation deploy \
+          #  --template-file infrastructure.yml \
+          #  --stack-name task-manager-stack \
+          #  --capabilities CAPABILITY_IAM
