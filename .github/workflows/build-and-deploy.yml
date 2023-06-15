@@ -88,11 +88,14 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
+      - name: Print Working Directory
+        run: pwd
+
+      - name: List Files in Workspace
+        run: ls
+
       - name: Deploy to ECS
         run: |
-          pwd
-          ls
-          
           # Deploy CloudFormation stack
           #aws cloudformation deploy \
           #  --template-file infrastructure.yml \
