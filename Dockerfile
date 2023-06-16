@@ -15,6 +15,9 @@ COPY gradle gradle
 # Copy the application source code
 COPY src src
 
+# Copy cloudformation template
+COPY infrastructure.yml .
+
 # Update gradlew permissions
 RUN chmod +x gradlew
 
