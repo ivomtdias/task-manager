@@ -1,10 +1,10 @@
 # Task Manager Application
 
-The Task Manager Application is a Kotlin Spring Boot application that allows users to hava basic CRUD operations.
+The Task Manager Application is a Kotlin Spring Boot application using MongoDB that allows users to have basic CRUD operations.
 
-The objective of this project it's not the backend itself but to demonstrate how to build and deploy to aws using CI/CD with github actions.
+The objective of this project it's not the backend itself but to demonstrate how to build and deploy to AWS using CI/CD with GitHub actions.
 
-It creates a docker image and pushes it to an ECR that will be used in an ECS.
+When a pull request is merged with master after running all the tests it will create a docker image and push it to an ECR that will be used in an ECS.
 
 All of this using Infrastructure as Code (IAC)
 
