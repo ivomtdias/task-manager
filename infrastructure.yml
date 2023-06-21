@@ -64,4 +64,4 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: vpc-01c43438790a20059
-      AvailabilityZone: eu-west-1
+      AvailabilityZone: eu-west-1a
