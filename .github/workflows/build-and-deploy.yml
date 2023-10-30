@@ -49,6 +49,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -95,7 +98,6 @@ jobs:
         run: ls
 
       - name: Deploy to ECS
-        working-directory: ./
         run: |
           chmod +x deploy-IaC.sh
           ./deploy-IaC.sh
