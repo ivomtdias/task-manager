@@ -95,9 +95,12 @@ jobs:
         run: ls
 
       - name: Deploy to ECS
+        working-directory: ${{ github.workspace }}
         run: |
+          chmod +x deploy-IaC.sh
+          ./deploy-IaC.sh
           # Deploy CloudFormation stack
-          aws cloudformation deploy \
-            --template-file infrastructure.yml \
-            --stack-name task-manager-stack \
-            --capabilities CAPABILITY_IAM
+          #aws cloudformation deploy \
+          #  --template-file infrastructure.yml \
+          #  --stack-name task-manager-stack \
+          #  --capabilities CAPABILITY_IAM

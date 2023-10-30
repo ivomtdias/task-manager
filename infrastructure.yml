@@ -58,10 +58,21 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Security group for the ECS tasks
-      VpcId: vpc-01c43438790a20059
+      VpcId: !Ref MyVPC
 
   Subnet:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: vpc-01c43438790a20059
-      AvailabilityZone: REPLACE_WITH_AVAILABILITY_ZONE
+      VpcId: !Ref MyVPC
+      AvailabilityZone: eu-west-1a
+      CidrBlock: 10.0.0.0/24
+
+  MyVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: MyVPC
