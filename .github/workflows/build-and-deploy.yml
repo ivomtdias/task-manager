@@ -103,10 +103,12 @@ jobs:
         run: pwd
 
       - name: List Files in Workspace
+        working-directory: ${{ github.workspace }}
         run: |
           ls -l
 
       - name: Deploy to ECS
+        working-directory: ${{ github.workspace }}
         run: |
           # Deploy CloudFormation stack
           aws cloudformation deploy \
