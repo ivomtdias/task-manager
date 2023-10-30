@@ -103,7 +103,8 @@ jobs:
         run: pwd
 
       - name: List Files in Workspace
-        run: ls
+        run: |
+          ls -l
 
       - name: Deploy to ECS
         run: |
