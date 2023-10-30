@@ -56,8 +56,6 @@ jobs:
           tags: ivomtdias/task-manager:latest
 
   deploy:
-    env:
-      AWS_DEFAULT_REGION: 'eu-west-1'
     needs: build
     runs-on: ubuntu-latest
 
@@ -111,6 +109,6 @@ jobs:
         run: |
           # Deploy CloudFormation stack
           aws cloudformation deploy \
-            --template-file infrastructure.yml \
+            --template-file ../infrastructure.yml \
             --stack-name task-manager-stack \
             --capabilities CAPABILITY_IAM
