@@ -112,6 +112,6 @@ jobs:
         run: |
           # Deploy CloudFormation stack
           aws cloudformation deploy \
-            --template-file ../infrastructure.yml \
+            --template-file infrastructure.yml \
             --stack-name task-manager-stack \
             --capabilities CAPABILITY_IAM
