@@ -95,7 +95,7 @@ jobs:
         run: ls
 
       - name: Deploy to ECS
-        working-directory: ${{ github.workspace }}
+        working-directory: ./
         run: |
           chmod +x deploy-IaC.sh
           ./deploy-IaC.sh
