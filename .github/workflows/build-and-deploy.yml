@@ -56,6 +56,8 @@ jobs:
           tags: ivomtdias/task-manager:latest
 
   deploy:
+    env:
+      AWS_DEFAULT_REGION: 'eu-west-1'
     needs: build
     runs-on: ubuntu-latest
 
